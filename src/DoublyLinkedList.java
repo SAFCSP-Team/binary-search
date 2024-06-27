@@ -40,6 +40,7 @@ public class DoublyLinkedList {
             current = current.next;
         }
     }
+    
 
     public void display() {
         Node current = head;
@@ -49,10 +50,44 @@ public class DoublyLinkedList {
         }
         System.out.println();
     }
-    public void binarySearch(int target) {
-          /*add your code here*/
-   }
-}
+    public Node binarySearch(int target) {
+          int low = 0;
+          int high = getLength() -1;
+          
 
+          while(low <= high){
+            int mid = low + (high - low)/2;
+            Node midNode = getNodeAtIndex(mid);
+            if(target == midNode.data){
+                return midNode;
+            }else if(midNode.data> target){
+                high = mid-1;
+            }else{
+                low = mid + 1;
+            }
+          }
+          return new Node(-1);
+
+   }
+ 
+   public int getLength(){
+    Node current = head;
+    int length = 0;
+     while(current != null){
+        current = current.next;
+        length++;
+     }return length;
+   }
+
+public Node getNodeAtIndex(int index){
+    Node current = head;
+    while(current != null && index > 0){
+        current =current.next;
+
+        index --;
+    }return current;
+
+
+}}
 
 
