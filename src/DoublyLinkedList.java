@@ -1,58 +1,69 @@
-public class DoublyLinkedList {
- Node head;
+class DoublyLinkedList {
+    Node head, tail;
 
- public void insert(int data) {
-    Node Node = new Node(data);
-     if (head == null) {
-         head = Node;
-   } else {
-    Node current = head;
-      while (current.next != null) {
-        current = current.next;
-          }
-          Node.previous = current;
-          current.next = Node;
+    class Node {
+        int data;
+        Node prev, next;
+
+        Node(int d) {
+            data = d;
+            prev = next = null;
         }
     }
 
-    public void delete(int data) {
+    public void add(int data) {
+        Node newNode = new Node(data);
         if (head == null) {
-            return;
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
         }
-   Node current = head;
-     while (current != null) {
-       if (current.data == data) {
-        if (current.previous == null) {
-            /*  Node to delete is the head node */
-               head = current.next;
-               if (head != null) {
-                head.previous = null;
-                    }
-                } else {
-                    /* Node to delete is not the head node */
-                    current.previous.next = current.next;
-                    if (current.next != null) {
-                        current.next.previous = current.previous;
-                    }
-                }
+    }
+
+    public Node getMiddle(Node start, Node end) {
+        if (start == null) return null;
+
+        int count = 0;
+        Node temp = start;
+        while (temp != end) {
+            count++;
+            temp = temp.next;
+        }
+
+        int midIndex = count / 2;
+        temp = start;
+
+        for (int i = 0; i < midIndex; i++) {
+            temp = temp.next;
+        }
+
+        return temp;
+    }
+
+        public void binarySearch(int target) {
+        Node start = head;
+        Node end = null;
+        int iterations = 0;
+
+        while (start != end) {
+            iterations++;
+            Node mid = getMiddle(start, end);
+
+            if (mid == null) {
                 break;
             }
-            current = current.next;
+
+            if (mid.data == target) {
+                System.out.println(target + " found in " + iterations + " iterations.");
+                return;
+            } else if (mid.data < target) {
+                start = mid.next;
+            } else {
+                end = mid;
+            }
         }
+
     }
-
-    public void display() {
-        Node current = head;
-        while (current != null) {
-            System.out.print(current.data + " ");
-            current = current.next;
-        }
-        System.out.println();
-    }
-    public void binarySearch(int target) {
-          /*add your code here*/
-   }
-}
-
-
 
